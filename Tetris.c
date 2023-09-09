@@ -2,17 +2,17 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "conio.h"
+#include <conio.h>
+
 
 #define field_h 22
 #define field_w 12
 
-//ãƒŸãƒã®å½¢ã‚’å®šç¾©
+//ƒ~ƒm‚ÌŒ`‚ğ’è‹`
 int mino[7][4][4][4]={
-    //ä¸€å€‹ç›®
+    //ˆêŒÂ–Ú
     {
         {
             {1,0,0,0},
@@ -39,7 +39,7 @@ int mino[7][4][4][4]={
             {0,0,0,0}
         },
     },
-    //2å€‹ç›®
+    //2ŒÂ–Ú
     {
         {
             {1,1,0,0},
@@ -66,7 +66,7 @@ int mino[7][4][4][4]={
             {0,0,0,0}
         },
     },
-    //3å€‹ç›®
+    //3ŒÂ–Ú
     {
         {
             {0,1,1,0},
@@ -93,7 +93,7 @@ int mino[7][4][4][4]={
             {0,0,0,0}
         },
     },
-    //4å€‹ç›®
+    //4ŒÂ–Ú
     {
         {
             {1,1,0,0},
@@ -120,7 +120,7 @@ int mino[7][4][4][4]={
             {0,0,0,0}
         },
     },
-    //5å€‹ç›®
+    //5ŒÂ–Ú
     {
         {
             {1,0,0,0},
@@ -147,7 +147,7 @@ int mino[7][4][4][4]={
             {0,0,0,0}
         },
     },
-    //6å€‹ç›®
+    //6ŒÂ–Ú
     {
         {
             {0,0,1,0},
@@ -174,7 +174,7 @@ int mino[7][4][4][4]={
             {0,0,0,0}
         },
     },
-    //7å€‹ç›®
+    //7ŒÂ–Ú
     {
         {
             {0,1,0,0},
@@ -210,9 +210,9 @@ int disbuf[22][12]={};
 int mino_x,mino_y;
 int shape,angle;
 
-//338è¡Œã¾ã§mainå†…ã§ä½¿ã†é–¢æ•°å®šç¾©
+//338s‚Ü‚Åmain“à‚Åg‚¤ŠÖ”’è‹`
 
-//hitã—ã¦ãŸã‚‰1ã‚’è¿”ã™
+//hit‚µ‚Ä‚½‚ç1‚ğ•Ô‚·
 int hit () {
     int i,j;
 
@@ -226,7 +226,7 @@ int hit () {
     return 0;
 }
 
-//ãƒŸãƒã‚’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å›ºå®š
+//ƒ~ƒm‚ğƒtƒB[ƒ‹ƒh‚ÉŒÅ’è
 void mino_fix_on_field () {
     int i,j;
 
@@ -237,7 +237,7 @@ void mino_fix_on_field () {
     }
 }
 
-//ãƒŸãƒã®ä½ç½®ã‚’åˆæœŸåŒ–ã—ã¦å½¢ã‚’æ±ºã‚ã‚‹
+//ƒ~ƒm‚ÌˆÊ’u‚ğ‰Šú‰»‚µ‚ÄŒ`‚ğŒˆ‚ß‚é
 void mino_decide (void) {
     srand((int)time(NULL));
     shape=(rand()%10000)%7;
@@ -246,7 +246,7 @@ void mino_decide (void) {
     mino_y=1;
 }
 
-//ãƒŸãƒã‚’disbufã«ã‚³ãƒ”ãƒ¼
+//ƒ~ƒm‚ğdisbuf‚ÉƒRƒs[
 void mino_copy_disbuf (void) {
     int i,j;
     for (i=0;i<4;i++) {
@@ -257,7 +257,7 @@ void mino_copy_disbuf (void) {
     }
 }
 
-//fieldã‚’disbufã«ã‚³ãƒ”ãƒ¼
+//field‚ğdisbuf‚ÉƒRƒs[
 void field_copy_disbuf (void) {
     int i,j;
     for (i=0;i<field_h;i++) {
@@ -267,7 +267,7 @@ void field_copy_disbuf (void) {
     }
 }
 
-//å›è»¢ã•ã›ã‚‹
+//‰ñ“]‚³‚¹‚é
 void rotate (void) {
     if (angle==3) {
         angle=0;
@@ -283,7 +283,7 @@ void rotate (void) {
     }
 }
 
-//disåˆæœŸåŒ–
+//dis‰Šú‰»
 void initialize_disbuf (void) {
     int i,j;
     for (i=0;i<field_h;i++) {
@@ -293,24 +293,24 @@ void initialize_disbuf (void) {
         }
 }
 
-//disbufå‡ºåŠ›
+//disbufo—Í
 void disbuf_out (void) {
     int i,j;
 
-    system("clear");
+    system("cls");
         for (i=0;i<field_h;i++) {
             for (j=0;j<field_w;j++) {
                 if (disbuf[i][j]==1 || disbuf[i][j]==2) {
-                    printf ("â¬›ï¸");
+                    printf ("¡");
                 } else {
-                    printf("ã€€");
+                    printf(" ");
                 }
             }
             printf ("\n");
         }
 }
 
-//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦ã‚‚ã—ä¸€åˆ—æƒã£ã¦ã„ãŸã‚‰æ¶ˆã™
+//ƒtƒB[ƒ‹ƒh‚ğƒ`ƒFƒbƒN‚µ‚Ä‚à‚µˆê—ñ‘µ‚Á‚Ä‚¢‚½‚çÁ‚·
 void field_cheack_and_delet_one_rine (void) {
     int i,j,k,count=0;
 
@@ -338,12 +338,12 @@ void field_cheack_and_delet_one_rine (void) {
 
 int main (void)
 {
-    //i,jã¯forã§ä½¿ã†ç”¨
+    //i,j‚Ífor‚Åg‚¤—p
     int i,j;
     time_t t;
     t=time(NULL);
 
-    //å¤–æ å®šç¾©//
+    //ŠO˜g’è‹`//
     for (i=0;i<field_h;i++) {
         for (j=0;j<field_w;j++) {
             field[i][0]=1;
@@ -353,16 +353,16 @@ int main (void)
         }
     }
 
-    //ãƒŸãƒã®ä½ç½®ã‚’åˆæœŸåŒ–ã—ã¦å½¢ã‚’æ±ºã‚ã‚‹
+    //ƒ~ƒm‚ÌˆÊ’u‚ğ‰Šú‰»‚µ‚ÄŒ`‚ğŒˆ‚ß‚é
     mino_decide();
 
     while (1)
     {
-        //disåˆæœŸåŒ–
+        //dis‰Šú‰»
         initialize_disbuf();
 
-        //ãƒŸãƒã‚’ãšã‚‰ã™
-        if (kbhit())
+        //ƒ~ƒm‚ğ‚¸‚ç‚·
+        if (_kbhit())
         {
             switch (getch())
             {
@@ -373,44 +373,44 @@ int main (void)
                     }
                 break;
                 case 's':
-                    //å€Ÿã‚Šã§ãƒŸãƒã‚’å‹•ã‹ã™
+                    //Ø‚è‚Åƒ~ƒm‚ğ“®‚©‚·
                     mino_y++;
                     if (hit()==1) {
-                        //å½“ãŸã£ãŸã‹ã‚‰ãƒŸãƒã‚’æˆ»ã™
+                        //“–‚½‚Á‚½‚©‚çƒ~ƒm‚ğ–ß‚·
                         mino_y--;
-                        //ãƒŸãƒã‚’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å›ºå®š
+                        //ƒ~ƒm‚ğƒtƒB[ƒ‹ƒh‚ÉŒÅ’è
                         mino_fix_on_field();
-                        //ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦ã‚‚ã—ä¸€è¡Œæƒã£ã¦ãŸã‚‰æ¶ˆã™
+                        //ƒtƒB[ƒ‹ƒh‚ğƒ`ƒFƒbƒN‚µ‚Ä‚à‚µˆês‘µ‚Á‚Ä‚½‚çÁ‚·
                         field_cheack_and_delet_one_rine();
-                        //ãƒŸãƒã®ä½ç½®ã‚’åˆæœŸåŒ–ã—ã¦å½¢ã‚’æ±ºã‚ã‚‹
+                        //ƒ~ƒm‚ÌˆÊ’u‚ğ‰Šú‰»‚µ‚ÄŒ`‚ğŒˆ‚ß‚é
                         mino_decide();
                     }
                 break;
                 case 'd':
-                    //å€Ÿã‚Šã§ãƒŸãƒã‚’å‹•ã‹ã™
+                    //Ø‚è‚Åƒ~ƒm‚ğ“®‚©‚·
                     mino_x++;
                     if (hit()==1) {
-                        //å½“ãŸã£ãŸã‚‰ãƒŸãƒã‚’æˆ»ã™
+                        //“–‚½‚Á‚½‚çƒ~ƒm‚ğ–ß‚·
                         mino_x--;
                         }
                 break;
                 case 0x20:
-                    //å›è»¢
+                    //‰ñ“]
                     rotate();
                 break;               
                 default:
-                //ä½•ã‚‚ã—ãªã„
+                //‰½‚à‚µ‚È‚¢
                 break;
             }
-            //ãƒŸãƒã‚³ãƒ”ãƒ¼
+            //ƒ~ƒmƒRƒs[
             mino_copy_disbuf();
-            //fieldã‚³ãƒ”ãƒ¼
+            //fieldƒRƒs[
             field_copy_disbuf();
             
-            //diså‡ºåŠ›
+            //diso—Í
             disbuf_out();
 
-            //2ä»¥ä¸ŠãŒãªã„ã‹åˆ¤å®šã™ã‚‹ã“ã¨ã§ä¸Šã«å½“ãŸã£ã¦ã„ãªã„ã‹ç¢ºèªã€å½“ãŸã£ã¦ã„ãŸã‚‰çµ‚äº†
+            //2ˆÈã‚ª‚È‚¢‚©”»’è‚·‚é‚±‚Æ‚Åã‚É“–‚½‚Á‚Ä‚¢‚È‚¢‚©Šm”FA“–‚½‚Á‚Ä‚¢‚½‚çI—¹
             for (i=0;i<field_h;i++) {
                 for (j=0;j<field_w;j++) {
                     if (disbuf[i][j]>=2) {
@@ -419,38 +419,38 @@ int main (void)
                 }
             }
             
-            //disåˆæœŸåŒ–
+            //dis‰Šú‰»
             initialize_disbuf();
 
-        }//ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰
+        }//ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç
 
         if (t!=time(NULL)) {
             t=time(NULL);
-            //ãƒŸãƒé™ä¸‹
+            //ƒ~ƒm~‰º
             mino_y++;
 
             if (hit()==1) {
                 mino_y--;
-                //ãƒŸãƒã‚’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«ã‚³ãƒ”ãƒ¼
+                //ƒ~ƒm‚ğƒtƒB[ƒ‹ƒh‚ÉƒRƒs[
                 mino_fix_on_field();
-                //ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦æ¶ˆã™
+                //ƒtƒB[ƒ‹ƒh‚ğƒ`ƒFƒbƒN‚µ‚ÄÁ‚·
                 field_cheack_and_delet_one_rine();
-                //ãƒŸãƒã®ä½ç½®ã‚’åˆæœŸåŒ–ã—ã¦å½¢ã‚’æ±ºã‚ã‚‹
+                //ƒ~ƒm‚ÌˆÊ’u‚ğ‰Šú‰»‚µ‚ÄŒ`‚ğŒˆ‚ß‚é
                 mino_decide();
                 
-            }//ãƒŸãƒã‚’ä¸‹ã’ã¦hitã—ãŸæ™‚
-        }//æ™‚é–“ãŒç²å¾—ã•ã‚ŒãŸã‚‰
+            }//ƒ~ƒm‚ğ‰º‚°‚Ähit‚µ‚½
+        }//ŠÔ‚ªŠl“¾‚³‚ê‚½‚ç
 
-        //fieldã‚³ãƒ”ãƒ¼
+        //fieldƒRƒs[
         field_copy_disbuf();
     
-        //ãƒŸãƒã‚³ãƒ”ãƒ¼
+        //ƒ~ƒmƒRƒs[
         mino_copy_disbuf();
 
-        //diså‡ºåŠ›
+        //diso—Í
         disbuf_out();
 
-        //2ä»¥ä¸ŠãŒãªã„ã‹åˆ¤å®šã™ã‚‹ã“ã¨ã§ä¸Šã«å½“ãŸã£ã¦ã„ãªã„ã‹ç¢ºèªã€å½“ãŸã£ã¦ã„ãŸã‚‰çµ‚äº†
+        //2ˆÈã‚ª‚È‚¢‚©”»’è‚·‚é‚±‚Æ‚Åã‚É“–‚½‚Á‚Ä‚¢‚È‚¢‚©Šm”FA“–‚½‚Á‚Ä‚¢‚½‚çI—¹
         for (i=0;i<field_h;i++) {
             for (j=0;j<field_w;j++) {
                 if (disbuf[i][j]>=2) {
@@ -458,6 +458,6 @@ int main (void)
                 }
             }
         }
-    }//ãƒ«ãƒ¼ãƒ—çµ‚äº†
+    }//ƒ‹[ƒvI—¹
     return 0;
 }
